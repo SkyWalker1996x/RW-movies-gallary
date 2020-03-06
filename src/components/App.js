@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
+import MovieItem from "./movie-item/movie-item";
 
 const _img_base = "https://image.tmdb.org/t/p/w500";
 
@@ -19,31 +20,10 @@ const movie = {
     release_date: "2018-04-25"
 };
 
-const Image = ({src, alt}) => {
-    return (
-        <img src={src} alt={alt}/>
-    )
-};
-
-class MovieItem extends Component {
-
-    render() {
-        const {title, vote_average, backdrop_path} = this.props.movie;
-
-        return (
-            <div>
-                <Image src={_img_base + backdrop_path} alt={title}/>
-                <p>{title}</p>
-                <p>{vote_average}</p>
-            </div>
-        )
-    }
-}
-
 const App = () => {
     return (
         <div>
-            <MovieItem movie={movie}/>
+            <MovieItem movie={movie} img_base={_img_base}/>
         </div>
     );
 };
