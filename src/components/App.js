@@ -1,5 +1,7 @@
 import React from 'react';
 import MovieItem from "./movie-item/movie-item";
+import {moviesData} from "../data/movies-data";
+import { MoviesWrapper } from "../styles/app/app";
 
 const _img_base = "https://image.tmdb.org/t/p/w500";
 
@@ -21,10 +23,18 @@ const movie = {
 };
 
 const App = () => {
-    return (
-        <div>
+
+    const movies = moviesData.map((movie, id) => {
+        return (
             <MovieItem movie={movie} img_base={_img_base}/>
-        </div>
+        )
+    });
+
+    return (
+        <MoviesWrapper>
+            {/*<MovieItem movie={movie} img_base={_img_base}/>*/}
+            {movies}
+        </MoviesWrapper>
     );
 };
 
