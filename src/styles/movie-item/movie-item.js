@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     max-width: 300px;
     padding: 5px;
     margin: 5px;
@@ -49,11 +52,21 @@ const ButtonLike = styled(Button)`
     }
 `;
 
+const ButtonDelete = styled(Button)`
+    color: #ff3300;
+    border-color: #ff3300;
+    &:hover {
+        background-color: #ff3300;
+        color: #ffffff; 
+    }
+`;
+
 export {
     Container,
     Title,
     VoteAverage,
     ButtonsWrapper,
     ButtonShow,
-    ButtonLike
+    ButtonLike,
+    ButtonDelete
 }

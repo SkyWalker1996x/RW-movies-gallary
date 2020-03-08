@@ -6,7 +6,7 @@ import {
     ButtonsWrapper,
     ButtonShow,
     Title,
-    VoteAverage
+    VoteAverage, ButtonDelete
 } from "../../styles/movie-item/movie-item";
 
 class MovieItem extends Component {
@@ -26,8 +26,9 @@ class MovieItem extends Component {
 
     render() {
         const {show, like} = this.state;
+        const {onDeletedMovie} = this.props;
         const {movie: {title, vote_average, backdrop_path, overview}, img_base} = this.props;
-        const description = show ? overview : null;
+        const description = show ? <p>{overview}</p> : null;
         const btnLabel = show ? 'Hide' : 'Show';
 
         return (
@@ -46,8 +47,11 @@ class MovieItem extends Component {
                         onClick={() => this.onToggleProperty('like')}>
                         Like
                     </ButtonLike>
+                    <ButtonDelete onClick={onDeletedMovie}>
+                        Delete
+                    </ButtonDelete>
                 </ButtonsWrapper>
-                <p>{description}</p>
+                {description}
             </Container>
         )
     }
