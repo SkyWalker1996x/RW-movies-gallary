@@ -51,10 +51,16 @@ const ButtonShow = styled(Button)`
     }
 `;
 
-const ButtonLike = styled(Button)`
+const ButtonWillWatch = styled(Button)`
     color: #ffffff;
     background-color: #4CAF50;
     border-color: #4CAF50;
+`;
+
+const ButtonRemoveWillWatch = styled(Button)`
+    color: #ffffff;
+    background-color: #3399ff;
+    border-color: #3399ff;
 `;
 
 const ButtonDelete = styled(Button)`
@@ -72,6 +78,7 @@ export {
     VoteAverage,
     ButtonsWrapper,
     ButtonShow,
-    ButtonLike,
+    ButtonWillWatch,
+    ButtonRemoveWillWatch,
     ButtonDelete
 }

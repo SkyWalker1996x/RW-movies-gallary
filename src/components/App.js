@@ -48,13 +48,14 @@ class App extends Component {
         return (
             <Wrapper>
                 <MovieItemList movies={movies}
+                               moviesWillWatch={moviesWillWatch}
                                img_base={_img_base}
                                onDeletedMovie={this.onDeletedMovie}
-                               onAddedWillWatch={this.onAddedWillWatch}/>
+                               onAddedWillWatch={this.onAddedWillWatch}
+                               onDeletedWillWatch={this.onDeletedWillWatch}/>
 
                 <MovieWillWatchList
-                    moviesWillWatch={moviesWillWatch}
-                    onDeletedWillWatch={this.onDeletedWillWatch}/>
+                    moviesWillWatch={moviesWillWatch}/>
             </Wrapper>
         );
     }

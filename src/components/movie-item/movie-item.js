@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import Image from "../image/image";
 import {
     Container,
-    ButtonLike,
+    ButtonWillWatch,
     ButtonsWrapper,
     Title,
     VoteAverage,
-    ButtonDelete
+    ButtonDelete, ButtonRemoveWillWatch
 } from "../../styles/movie-item/movie-item";
 
 class MovieItem extends Component {
@@ -17,10 +17,6 @@ class MovieItem extends Component {
     };
 
     onWillWatch = () => {
-        if (this.state.willWatch) {
-            return
-        }
-
         this.setState({
             willWatch: true
         });
@@ -28,10 +24,27 @@ class MovieItem extends Component {
         this.props.onAddedWillWatch()
     };
 
+    onRemoveWillWatch = () => {
+        this.setState({
+            willWatch: false
+        });
+
+        this.props.onDeletedWillWatch()
+    };
+
     render() {
-        const {like} = this.state;
+        const {willWatch} = this.state;
         const {onDeletedMovie} = this.props;
         const {movie: {title, vote_average, backdrop_path}, img_base} = this.props;
+        const button = willWatch ?
+            <ButtonRemoveWillWatch
+                onClick={() => this.onRemoveWillWatch()}>
+                Remove
+            </ButtonRemoveWillWatch>
+            : <ButtonWillWatch
+                onClick={() => this.onWillWatch()}>
+                Will Watch
+            </ButtonWillWatch>;
 
         return (
             <Container>
@@ -48,11 +61,7 @@ class MovieItem extends Component {
                 </VoteAverage>
 
                 <ButtonsWrapper>
-                    <ButtonLike
-                        like={like}
-                        onClick={() => this.onWillWatch()}>
-                        Will Watch
-                    </ButtonLike>
+                    {button}
 
                     <ButtonDelete
                         onClick={onDeletedMovie}>

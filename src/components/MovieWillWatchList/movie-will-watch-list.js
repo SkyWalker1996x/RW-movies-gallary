@@ -2,7 +2,7 @@ import React from "react";
 import {Item} from "../../styles/movie-item-list/movie-item-list";
 
 
-const MovieWillWatchList = ({moviesWillWatch, onDeletedWillWatch}) => {
+const MovieWillWatchList = ({moviesWillWatch}) => {
 
     const moviesLength = moviesWillWatch.length;
 
@@ -11,8 +11,7 @@ const MovieWillWatchList = ({moviesWillWatch, onDeletedWillWatch}) => {
 
         return (
             <Item
-                key={id}
-                onClick={() => onDeletedWillWatch(moviesWillWatch, id)}>
+                key={id}>
                 {title}
             </Item>
         )
