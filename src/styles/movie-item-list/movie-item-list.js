@@ -8,6 +8,7 @@ const MoviesWrapper = styled.div`
 `;
 
 const Item = styled.p`
+    max-width: 200px;
     border: 1px solid #ddd; 
     margin-top: -1px; 
     background-color: #f6f6f6; 

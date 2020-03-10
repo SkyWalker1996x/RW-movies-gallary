@@ -3,7 +3,11 @@ import MovieItem from "../movie-item/movie-item";
 import {MoviesWrapper} from "../../styles/movie-item-list/movie-item-list";
 
 
-const MovieItemList = ({movies, img_base, onDeletedWillWatch, onAddedWillWatch, moviesWillWatch}) => {
+const MovieItemList = (props) => {
+
+    const {movies, img_base,
+        onDeletedMovie, onAddedWillWatch,
+        moviesWillWatch, onDeletedWillWatch} = props;
 
     const moviesList = movies.map((movie) => {
         const {id} = movie;
@@ -13,6 +17,7 @@ const MovieItemList = ({movies, img_base, onDeletedWillWatch, onAddedWillWatch, 
                 key={id}
                 movie={movie}
                 img_base={img_base}
+                onDeletedMovie={() => onDeletedMovie(movies, id)}
                 onDeletedWillWatch={() => onDeletedWillWatch(moviesWillWatch, id)}
                 onAddedWillWatch={() => onAddedWillWatch(movies, id)}
             />

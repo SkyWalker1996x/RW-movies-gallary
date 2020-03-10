@@ -1,17 +1,34 @@
-import React, { Component } from 'react';
-import { moviesData } from "../data/movies-data";
-import { Wrapper } from "../styles/app/app";
+import React, {Component} from 'react';
+import {Wrapper} from "../styles/app/app";
 import MovieItemList from "./movie-item-list/movie-item-list";
 import MovieWillWatchList from "./MovieWillWatchList/movie-will-watch-list";
-
-const _img_base = "https://image.tmdb.org/t/p/w500";
+import MoviesService from "../data/movies-service";
 
 
 class App extends Component {
 
+    moviesService = new MoviesService();
+
     state = {
-        movies: moviesData,
-        moviesWillWatch: []
+        movies: [],
+        moviesWillWatch: [],
+        hasError: false
+    };
+
+    componentDidMount() {
+        this.moviesService
+            .getResource()
+            .then((data) => this.onMoviesLoaded(data))
+            .catch(() => {
+                    this.setState({
+                        hasError: true
+                    })
+                }
+            )
+    }
+
+    onMoviesLoaded = (movies) => {
+        this.setState({movies})
     };
 
     onDeletedMovie = (arr, id) => {
@@ -43,13 +60,19 @@ class App extends Component {
 
 
     render() {
-        const {movies, moviesWillWatch} = this.state;
+        const {movies, moviesWillWatch, hasError} = this.state;
+
+        if(hasError) {
+            return (
+                <p>Here must be original picture and text</p>
+            )
+        }
 
         return (
             <Wrapper>
                 <MovieItemList movies={movies}
                                moviesWillWatch={moviesWillWatch}
-                               img_base={_img_base}
+                               img_base={this.moviesService._IMG_URL}
                                onDeletedMovie={this.onDeletedMovie}
                                onAddedWillWatch={this.onAddedWillWatch}
                                onDeletedWillWatch={this.onDeletedWillWatch}/>
