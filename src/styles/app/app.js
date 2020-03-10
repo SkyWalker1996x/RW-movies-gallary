@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-const MoviesWrapper = styled.div`
-    margin: 0 auto;
+const Wrapper = styled.div`
     max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
 `;
 
 export {
-    MoviesWrapper
+    Wrapper,
 }

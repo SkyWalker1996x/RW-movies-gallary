@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
-import MovieItem from "./movie-item/movie-item";
-import {moviesData} from "../data/movies-data";
-import {MoviesWrapper} from "../styles/app/app";
+import React, { Component } from 'react';
+import { moviesData } from "../data/movies-data";
+import { Wrapper } from "../styles/app/app";
+import MovieItemList from "./movie-item-list/movie-item-list";
+import MovieWillWatchList from "./MovieWillWatchList/movie-will-watch-list";
 
 const _img_base = "https://image.tmdb.org/t/p/w500";
 
@@ -9,7 +10,8 @@ const _img_base = "https://image.tmdb.org/t/p/w500";
 class App extends Component {
 
     state = {
-        movies: moviesData
+        movies: moviesData,
+        moviesWillWatch: []
     };
 
     onDeletedMovie = (arr, id) => {
@@ -22,25 +24,38 @@ class App extends Component {
         })
     };
 
+    onAddedWillWatch = (arr, addId) => {
+        const movie = arr.filter(item => item.id === addId);
+        const newArr = [...this.state.moviesWillWatch, ...movie];
+
+        this.setState({
+            moviesWillWatch: newArr
+        })
+    };
+
+    onDeletedWillWatch = (arr, removeId) => {
+        const newMoviesList = arr.filter(item => item.id !== removeId);
+
+        this.setState({
+            moviesWillWatch: newMoviesList
+        })
+    };
+
+
     render() {
-        const {movies} = this.state;
-
-        const moviesList = movies.map((movie) => {
-            const {id} = movie;
-
-            return (
-                <MovieItem
-                    key={id}
-                    movie={movie}
-                    img_base={_img_base}
-                    onDeletedMovie={() => this.onDeletedMovie(movies, id)}/>
-            )
-        });
+        const {movies, moviesWillWatch} = this.state;
 
         return (
-            <MoviesWrapper>
-                {moviesList}
-            </MoviesWrapper>
+            <Wrapper>
+                <MovieItemList movies={movies}
+                               img_base={_img_base}
+                               onDeletedMovie={this.onDeletedMovie}
+                               onAddedWillWatch={this.onAddedWillWatch}/>
+
+                <MovieWillWatchList
+                    moviesWillWatch={moviesWillWatch}
+                    onDeletedWillWatch={this.onDeletedWillWatch}/>
+            </Wrapper>
         );
     }
 }

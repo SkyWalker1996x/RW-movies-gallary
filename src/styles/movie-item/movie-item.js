@@ -5,31 +5,40 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     max-width: 300px;
-    padding: 5px;
     margin: 5px;
+    border: 1px solid #e7e7e7;
+    background-color: #ffffff;
 `;
 
 const Title = styled.p`
-    font-size: 24px;
+    margin-left: 10px;
+    margin-right: 10px;
     padding-left: 10px;
+    font-size: 24px;
 `;
 
 const VoteAverage = styled.p`
-    color: grey;
-    font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
     padding-left: 10px;
+    color: grey;
+    font-size: 18px; 
 `;
 
 const ButtonsWrapper = styled.div`
+    margin: 0 10px;
     display: flex;
     justify-content: space-between;
 `;
 
 const Button = styled.button`
+    min-width: 125px;
+    padding: 12px 15px;
+    margin: 3px;
     border: 2px solid black;
     background-color: white;
+    border-radius: 3px;
     color: black;
-    padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
 `;
@@ -43,13 +52,9 @@ const ButtonShow = styled(Button)`
 `;
 
 const ButtonLike = styled(Button)`
-    color: ${props => props.like ? "#ffffff" : "#4CAF50"};
-    background-color: ${props => props.like ? "#4CAF50" : "#ffffff"};
+    color: #ffffff;
+    background-color: #4CAF50;
     border-color: #4CAF50;
-    &:hover {
-        background-color: #4CAF50;
-        color: #ffffff; 
-    }
 `;
 
 const ButtonDelete = styled(Button)`

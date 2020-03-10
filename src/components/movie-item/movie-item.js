@@ -4,54 +4,61 @@ import {
     Container,
     ButtonLike,
     ButtonsWrapper,
-    ButtonShow,
     Title,
-    VoteAverage, ButtonDelete
+    VoteAverage,
+    ButtonDelete
 } from "../../styles/movie-item/movie-item";
 
 class MovieItem extends Component {
 
     state = {
         show: false,
-        like: false
+        willWatch: false
     };
 
-    onToggleProperty = (property) => {
-        this.setState(() => {
-            return {
-                [property]: !this.state[property]
-            }
-        })
+    onWillWatch = () => {
+        if (this.state.willWatch) {
+            return
+        }
+
+        this.setState({
+            willWatch: true
+        });
+
+        this.props.onAddedWillWatch()
     };
 
     render() {
-        const {show, like} = this.state;
+        const {like} = this.state;
         const {onDeletedMovie} = this.props;
-        const {movie: {title, vote_average, backdrop_path, overview}, img_base} = this.props;
-        const description = show ? <p>{overview}</p> : null;
-        const btnLabel = show ? 'Hide' : 'Show';
+        const {movie: {title, vote_average, backdrop_path}, img_base} = this.props;
 
         return (
             <Container>
-                <Image src={img_base + backdrop_path} alt={title}/>
-                <Title>{title}</Title>
-                <VoteAverage>{vote_average}</VoteAverage>
+                <Image
+                    src={img_base + backdrop_path}
+                    alt={title}/>
+
+                <Title>
+                    {title}
+                </Title>
+
+                <VoteAverage>
+                    Rating: {vote_average}
+                </VoteAverage>
+
                 <ButtonsWrapper>
-                    <ButtonShow
-                        type="button"
-                        onClick={() => this.onToggleProperty('show')}>
-                        {btnLabel}
-                    </ButtonShow>
                     <ButtonLike
                         like={like}
-                        onClick={() => this.onToggleProperty('like')}>
-                        Like
+                        onClick={() => this.onWillWatch()}>
+                        Will Watch
                     </ButtonLike>
-                    <ButtonDelete onClick={onDeletedMovie}>
+
+                    <ButtonDelete
+                        onClick={onDeletedMovie}>
                         Delete
                     </ButtonDelete>
                 </ButtonsWrapper>
-                {description}
             </Container>
         )
     }
