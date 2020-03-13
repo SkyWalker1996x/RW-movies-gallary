@@ -6,13 +6,17 @@ const MoviesPagination = ({onPageChange, page, totalPages}) => {
     const onNextPage = (page) => {
         let nextPage = page + 1;
 
-        onPageChange(nextPage)
+        if (page < 500) {
+            onPageChange(nextPage)
+        }
     };
 
     const onPrevPage = (page) => {
         let prevPage = page - 1;
 
-        onPageChange(prevPage)
+        if (page > 1) {
+            onPageChange(prevPage)
+        }
     };
 
     return (
