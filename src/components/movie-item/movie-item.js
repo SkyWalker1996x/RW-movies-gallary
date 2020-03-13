@@ -34,8 +34,7 @@ class MovieItem extends Component {
 
     render() {
         const {willWatch} = this.state;
-        const {onDeletedMovie} = this.props;
-        const {movie: {title, vote_average, backdrop_path}, img_base} = this.props;
+        const {movie: {title, vote_average, backdrop_path}, img_base, onDeletedMovie} = this.props;
         const img_path = backdrop_path ? img_base + backdrop_path : 'https://picsum.photos/1200/675';
         const button = willWatch ?
             <ButtonRemoveWillWatch

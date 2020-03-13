@@ -4,6 +4,7 @@ const MoviesWrapper = styled.div`
     max-width: 950px;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     justify-content: start;
 `;
 

@@ -4,6 +4,7 @@ import MovieItemList from "./movie-item-list/movie-item-list";
 import MovieWillWatchList from "./MovieWillWatchList/movie-will-watch-list";
 import MoviesService from "../data/movies-service";
 import MovieTabs from "./movie-tabs/movie-tabs";
+import MoviesPagination from "./movies-pagination/movies-pagination";
 
 
 class App extends Component {
@@ -14,22 +15,27 @@ class App extends Component {
         movies: [],
         moviesWillWatch: [],
         sort_by: 'popularity.desc',
+        page: 1,
+        totalPages: null,
         hasError: false
     };
 
     componentDidMount() {
-        this.updateMovies()
+        this.updateMovies();
+        this.updateTotalPages()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.sort_by !== this.state.sort_by) {
+        if (prevState.sort_by !== this.state.sort_by || prevState.page !== this.state.page) {
             this.updateMovies()
         }
     }
 
     updateMovies = () => {
+        const {sort_by, page} = this.state;
+
         this.moviesService
-            .getResource(this.state.sort_by)
+            .getMovies(sort_by, page)
             .then((data) => this.onMoviesLoaded(data))
             .catch(() => {
                     this.setState({
@@ -39,8 +45,23 @@ class App extends Component {
             )
     };
 
+    updateTotalPages = () => {
+        const {sort_by, page} = this.state;
+
+        this.moviesService.getTotalPage(sort_by, page)
+            .then((data) => this.onTotalPagesLoaded(data))
+    };
+
+    onTotalPagesLoaded = (totalPages) => {
+        this.setState({totalPages})
+    };
+
     onMoviesLoaded = (movies) => {
-        this.setState({movies})
+        this.setState(() => {
+            return {
+                movies
+            }
+        })
     };
 
     onDeletedMovie = (arr, id) => {
@@ -78,8 +99,16 @@ class App extends Component {
         })
     };
 
+    onPageChange = (page) => {
+        this.setState(() => {
+            return {page}
+
+        })
+    };
+
     render() {
-        const {movies, moviesWillWatch, hasError, sort_by} = this.state;
+        const {movies, moviesWillWatch, hasError, sort_by, page, totalPages} = this.state;
+
 
         if (hasError) {
             return (
@@ -92,6 +121,7 @@ class App extends Component {
                 <MovieTabs
                     onChangeSortMovies={this.onChangeSortMovies}
                     sort_by={sort_by}/>
+
                 <Wrapper>
                     <MovieItemList movies={movies}
                                    moviesWillWatch={moviesWillWatch}
@@ -103,8 +133,11 @@ class App extends Component {
                     <MovieWillWatchList
                         moviesWillWatch={moviesWillWatch}/>
                 </Wrapper>
+                <MoviesPagination
+                    onPageChange={this.onPageChange}
+                    totalPages={totalPages}
+                    page={page}/>
             </Container>
-
         );
     }
 }

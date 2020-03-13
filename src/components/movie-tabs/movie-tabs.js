@@ -11,7 +11,6 @@ const tabsData = [
 const MovieTabs = ({onChangeSortMovies, sort_by}) => {
 
     const tabs = tabsData.map(({id, title, value}) => {
-
         const active = sort_by === value;
 
         return (

@@ -43,7 +43,7 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
-const ButtonShow = styled(Button)`
+const ButtonDefault = styled(Button)`
     border-color: #e7e7e7;
     color: black;
     &:hover {
@@ -77,7 +77,7 @@ export {
     Title,
     VoteAverage,
     ButtonsWrapper,
-    ButtonShow,
+    ButtonDefault,
     ButtonWillWatch,
     ButtonRemoveWillWatch,
     ButtonDelete
